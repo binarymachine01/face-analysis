@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
+from starlette.middleware.cors import CORSMiddleware
 import boto3
 
 import os
@@ -16,7 +17,16 @@ rekognition_client = boto3.client('rekognition',
 
 app = FastAPI()
 
-# Endpoint to analyze face in image
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins, be cautious in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, PUT, DELETE)
+    allow_headers=["*"],  # Allows all headers
+)
+
+
 @app.post("/analyze-face")
 async def analyze_face(file: UploadFile = File(...)):
     # Read the image file
