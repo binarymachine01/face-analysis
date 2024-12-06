@@ -41,8 +41,6 @@ __pycache__/
 # Other FastAPI related files (like migrations, etc.)
 /alembic/
 
-# Secret files (if any)
-*.env
 
 # Coverage reports
 .coverage
